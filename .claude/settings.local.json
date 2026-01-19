@@ -12,7 +12,13 @@
       "mcp__neon__run_sql_transaction",
       "mcp__neon__run_sql",
       "mcp__neon__list_branch_computes",
-      "Bash(npx tsx:*)"
+      "Bash(npx tsx:*)",
+      "Bash(git config:*)",
+      "Bash(tree:*)",
+      "Bash(npm run lint)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(cd:*)",
+      "Bash(npx tsc --noEmit)"
     ],
     "deny": [],
     "ask": []

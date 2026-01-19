@@ -2,6 +2,18 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## ⚠️ IMPORTANT: Documentation-First Approach
+
+**ALWAYS refer to the relevant documentation files in the `/docs` directory BEFORE generating any code.**
+
+Before writing or modifying code for any feature or technology used in this project:
+1. Check if a relevant documentation file exists in `/docs`
+2. Read and understand the patterns, examples, and guidelines documented there
+3. Follow the documented conventions and code patterns exactly
+4. Only then proceed with code generation
+
+This ensures consistency with project standards and prevents using outdated patterns.
+
 ## Project Overview
 
 This is a Next.js 16 application for a lifting diary course, built with:
