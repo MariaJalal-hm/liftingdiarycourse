@@ -10,7 +10,7 @@ import {
   index,
   unique,
 } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 
 // ========================================
 // WORKOUTS TABLE
@@ -156,6 +156,50 @@ export const sets = pgTable(
     ),
   })
 );
+
+// ========================================
+// RELATIONS
+// ========================================
+export const workoutsRelations = relations(workouts, ({ many }) => ({
+  workoutExercises: many(workoutExercises),
+}));
+
+export const exerciseCategoriesRelations = relations(
+  exerciseCategories,
+  ({ many }) => ({
+    exercises: many(exercises),
+  })
+);
+
+export const exercisesRelations = relations(exercises, ({ one, many }) => ({
+  category: one(exerciseCategories, {
+    fields: [exercises.categoryId],
+    references: [exerciseCategories.id],
+  }),
+  workoutExercises: many(workoutExercises),
+}));
+
+export const workoutExercisesRelations = relations(
+  workoutExercises,
+  ({ one, many }) => ({
+    workout: one(workouts, {
+      fields: [workoutExercises.workoutId],
+      references: [workouts.id],
+    }),
+    exercise: one(exercises, {
+      fields: [workoutExercises.exerciseId],
+      references: [exercises.id],
+    }),
+    sets: many(sets),
+  })
+);
+
+export const setsRelations = relations(sets, ({ one }) => ({
+  workoutExercise: one(workoutExercises, {
+    fields: [sets.workoutExerciseId],
+    references: [workoutExercises.id],
+  }),
+}));
 
 // ========================================
 // TYPE EXPORTS (for TypeScript inference)

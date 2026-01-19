@@ -14,6 +14,8 @@ Before writing or modifying code for any feature or technology used in this proj
 
 This ensures consistency with project standards and prevents using outdated patterns.
 
+-/docs/data-fetching.md
+
 ## Project Overview
 
 This is a Next.js 16 application for a lifting diary course, built with:

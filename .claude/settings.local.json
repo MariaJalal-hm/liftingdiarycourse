@@ -18,7 +18,8 @@
       "Bash(npm run lint)",
       "Bash(npx shadcn@latest add:*)",
       "Bash(cd:*)",
-      "Bash(npx tsc --noEmit)"
+      "Bash(npx tsc --noEmit)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []
