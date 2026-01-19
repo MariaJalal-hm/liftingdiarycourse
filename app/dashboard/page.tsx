@@ -19,7 +19,8 @@ export default async function DashboardPage({
   searchParams,
 }: DashboardPageProps) {
   const params = await searchParams;
-  const date = params.date ? new Date(params.date) : new Date();
+  const dateString = params.date || format(new Date(), "yyyy-MM-dd");
+  const date = new Date(dateString);
 
   const workouts = await getWorkoutsForDate(date);
 
@@ -35,7 +36,7 @@ export default async function DashboardPage({
             </p>
           </div>
 
-          <DatePicker date={date} />
+          <DatePicker dateString={dateString} />
         </div>
 
         {/* Workout List */}

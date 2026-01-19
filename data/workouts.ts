@@ -4,42 +4,48 @@ import { auth } from "@clerk/nextjs/server";
 import { eq, and, gte, lt } from "drizzle-orm";
 
 export async function getWorkoutsForDate(date: Date) {
-  const { userId } = await auth();
+  try {
+    const { userId } = await auth();
 
-  if (!userId) {
-    throw new Error("Unauthorized");
-  }
+    if (!userId) {
+      console.log("[getWorkoutsForDate] No userId found");
+      return [];
+    }
 
-  // Get start and end of the day
-  const startOfDay = new Date(date);
-  startOfDay.setHours(0, 0, 0, 0);
+    // Get start and end of the day
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
 
-  const endOfDay = new Date(date);
-  endOfDay.setHours(23, 59, 59, 999);
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
 
-  const userWorkouts = await db.query.workouts.findMany({
-    where: and(
-      eq(workouts.userId, userId),
-      gte(workouts.startedAt, startOfDay),
-      lt(workouts.startedAt, endOfDay)
-    ),
-    with: {
-      workoutExercises: {
-        orderBy: (workoutExercises, { asc }) => [
-          asc(workoutExercises.exerciseOrder),
-        ],
-        with: {
-          exercise: true,
-          sets: {
-            orderBy: (sets, { asc }) => [asc(sets.setNumber)],
+    const userWorkouts = await db.query.workouts.findMany({
+      where: and(
+        eq(workouts.userId, userId),
+        gte(workouts.startedAt, startOfDay),
+        lt(workouts.startedAt, endOfDay)
+      ),
+      with: {
+        workoutExercises: {
+          orderBy: (workoutExercises, { asc }) => [
+            asc(workoutExercises.exerciseOrder),
+          ],
+          with: {
+            exercise: true,
+            sets: {
+              orderBy: (sets, { asc }) => [asc(sets.setNumber)],
+            },
           },
         },
       },
-    },
-    orderBy: (workouts, { desc }) => [desc(workouts.startedAt)],
-  });
+      orderBy: (workouts, { desc }) => [desc(workouts.startedAt)],
+    });
 
-  return userWorkouts;
+    return userWorkouts;
+  } catch (error) {
+    console.error("[getWorkoutsForDate] Error:", error);
+    return [];
+  }
 }
 
 export async function getWorkouts() {

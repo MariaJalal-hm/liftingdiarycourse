@@ -19,7 +19,10 @@
       "Bash(npx shadcn@latest add:*)",
       "Bash(cd:*)",
       "Bash(npx tsc --noEmit)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(git checkout:*)",
+      "Bash(git stash:*)",
+      "Bash(npm ls:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { format } from "date-fns";
+import { useState, useEffect } from "react";
+import { format, parseISO } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -12,28 +12,33 @@ import {
 } from "@/components/ui/popover";
 
 interface DatePickerProps {
-  date: Date;
+  dateString: string; // ISO date string (yyyy-MM-dd)
 }
 
-export function DatePicker({ date }: DatePickerProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+export function DatePicker({ dateString }: DatePickerProps) {
+  const [mounted, setMounted] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const date = parseISO(dateString);
 
   const handleDateChange = (newDate: Date | undefined) => {
     if (newDate) {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("date", format(newDate, "yyyy-MM-dd"));
-      router.push(`/dashboard?${params.toString()}`);
-      router.refresh();
+      setOpen(false);
+      // Use window.location for full page navigation to work better with Clerk
+      window.location.href = `/dashboard?date=${format(newDate, "yyyy-MM-dd")}`;
     }
   };
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" className="w-[200px] justify-start">
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {format(date, "do MMM yyyy")}
+          {mounted ? format(date, "do MMM yyyy") : dateString}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="end">
@@ -41,7 +46,6 @@ export function DatePicker({ date }: DatePickerProps) {
           mode="single"
           selected={date}
           onSelect={handleDateChange}
-          initialFocus
         />
       </PopoverContent>
     </Popover>
