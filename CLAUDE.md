@@ -14,7 +14,12 @@ Before writing or modifying code for any feature or technology used in this proj
 
 This ensures consistency with project standards and prevents using outdated patterns.
 
--/docs/data-fetching.md
+### Available Documentation
+
+- `/docs/auth.md` - Authentication standards (Clerk)
+- `/docs/data-fetching.md` - Data fetching patterns
+- `/docs/data-mutations.md` - Data mutation patterns (Server Actions, Zod validation)
+- `/docs/ui.md` - UI component standards (shadcn/ui)
 
 ## Project Overview
 

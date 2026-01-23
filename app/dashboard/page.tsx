@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { format } from "date-fns";
 import { Dumbbell } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -96,8 +97,10 @@ export default async function DashboardPage({
         </div>
 
         {/* Add Workout Button */}
-        <Button className="w-full sm:w-auto sm:self-start">
-          + Log New Workout
+        <Button className="w-full sm:w-auto sm:self-start" asChild>
+          <Link href={`/dashboard/workout/new?date=${dateString}`}>
+            + Log New Workout
+          </Link>
         </Button>
       </div>
     </main>
