@@ -86,3 +86,67 @@ export async function createWorkout(data: CreateWorkoutData) {
 
   return workout;
 }
+
+export async function getWorkoutById(id: string) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return null;
+  }
+
+  const workout = await db.query.workouts.findFirst({
+    where: and(eq(workouts.id, id), eq(workouts.userId, userId)),
+    with: {
+      workoutExercises: {
+        orderBy: (workoutExercises, { asc }) => [
+          asc(workoutExercises.exerciseOrder),
+        ],
+        with: {
+          exercise: true,
+          sets: {
+            orderBy: (sets, { asc }) => [asc(sets.setNumber)],
+          },
+        },
+      },
+    },
+  });
+
+  return workout || null;
+}
+
+type UpdateWorkoutData = {
+  name?: string;
+  notes?: string;
+  startedAt?: Date;
+};
+
+export async function updateWorkout(id: string, data: UpdateWorkoutData) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  // Build the update object only with provided fields
+  const updateData: Record<string, unknown> = {
+    updatedAt: new Date(),
+  };
+
+  if (data.name !== undefined) {
+    updateData.name = data.name || null;
+  }
+  if (data.notes !== undefined) {
+    updateData.notes = data.notes || null;
+  }
+  if (data.startedAt !== undefined) {
+    updateData.startedAt = data.startedAt;
+  }
+
+  const [workout] = await db
+    .update(workouts)
+    .set(updateData)
+    .where(and(eq(workouts.id, id), eq(workouts.userId, userId)))
+    .returning();
+
+  return workout;
+}

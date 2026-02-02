@@ -19,6 +19,8 @@ This ensures consistency with project standards and prevents using outdated patt
 - `/docs/auth.md` - Authentication standards (Clerk)
 - `/docs/data-fetching.md` - Data fetching patterns
 - `/docs/data-mutations.md` - Data mutation patterns (Server Actions, Zod validation)
+- `/docs/server-components.md` - Server Components standards (async params, searchParams)
+- `/docs/routing.md` - Routing standards (protected routes, middleware)
 - `/docs/ui.md` - UI component standards (shadcn/ui)
 
 ## Project Overview
