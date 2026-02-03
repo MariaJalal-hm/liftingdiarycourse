@@ -3,7 +3,7 @@ import { db } from './index';
 import { exerciseCategories, exercises } from './schema';
 
 async function seedExercises() {
-  console.log('🌱 Starting database seed...\n');
+  console.log('🌱 Starting database seed....\n');
 
   try {
     // ========================================
