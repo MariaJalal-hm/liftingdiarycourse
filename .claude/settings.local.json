@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(dir:*)",
+      "Bash(dir:*)", 
       "Bash(nul)",
       "WebFetch(domain:clerk.com)",
       "Bash(npm install:*)",
@@ -26,7 +26,9 @@
       "Bash(npm run lint:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(git push:*)"
+
     ],
     "deny": [],
     "ask": []

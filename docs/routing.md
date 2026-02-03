@@ -15,7 +15,7 @@ All application routes are accessed via `/dashboard`. The root `/` path is the p
 /dashboard/settings     # Protected - User settings
 ```
 
-## Route Protection
+## Route Protection added
 
 **All `/dashboard` routes are protected** and only accessible by authenticated users.
 
