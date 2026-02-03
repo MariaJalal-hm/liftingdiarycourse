@@ -1,1 +1,1 @@
-commit any chnages in the current branch and provide a suitable commit message based on the code changes. then merge the current branch into the $1 branch and resolve any issues off the back of theat merge. Then create a new branch called $2
+commit any chnages in the current branch and provide a suitable commit message based on the code changes. then merge the current branch into the $1 branch and resolve any issues off the back of theat merge. Then Create a new branch called $2 
